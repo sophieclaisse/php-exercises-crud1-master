@@ -27,13 +27,13 @@ afficher();
 function afficher()
 {
     global $conn;
-    $selection = "SELECT clients.* from clients ";
+    $selection = "SELECT clients.*, cardTypes.id, cards.cardTypesId, cards.cardNumber from clients, cardTypes, cards where cardTypes.id=cards.cardTypesId AND  cards.cardNumber=clients.cardNumber";
     $sel = $conn->query($selection);
 
     while ($row = $sel->fetch_assoc()) {
         echo " - LASTNAME " . $row['lastName']."<br> - FIRSTNAME " . $row['firstName'] . " <br> - BIRTHDATE  " . $row['birthDate'] ."<br>";
 
-            if ($row ['card']==1) {echo "- CARD: OUI <br> -  CARDNUMBER" . $row['cardNumber'] ."<br><br>";}
+            if ($row ['card']==1 && $row['cardTypes.id'==1]) {echo "- CARD: OUI <br> -  CARDNUMBER" . $row['cardNumber'] ."<br><br>";}
             else {echo "- CARD:NON <BR><br>";}
     }
 }
